@@ -129,7 +129,7 @@ function getRoundWinner(round) {
       return 'Player Two';
     }
   }
-  if (playerOneType === 'Paper') {
+  if (playerOneType === 'paper') {
     if (playerTwoType === 'rock') {
       return 'Player One';
     } else {
@@ -140,43 +140,36 @@ function getRoundWinner(round) {
 
 function getGameWinner() {
   if (!playerOneMoveOneType || !playerOneMoveTwoType ||
-    !playerOneMoveThreeType || !playerOneMoveOneValue ||
-    !playerOneMoveTwoValue || !playerOneMoveThreeValue ||
-    !playerTwoMoveOneType || !playerTwoMoveTwoType ||
-    !playerTwoMoveThreeType || !playerTwoMoveOneValue ||
-    !playerTwoMoveTwoValue || !playerTwoMoveThreeValue) {
-  return null;
+      !playerOneMoveThreeType || !playerOneMoveOneValue ||
+      !playerOneMoveTwoValue || !playerOneMoveThreeValue ||
+      !playerTwoMoveOneType || !playerTwoMoveTwoType ||
+      !playerTwoMoveThreeType || !playerTwoMoveOneValue ||
+      !playerTwoMoveTwoValue || !playerTwoMoveThreeValue) {
+    return null;
+  }
+  let playerOneWins = 0;
+  let playerTwoWins = 0;
+
+  const roundOneWinner = getRoundWinner(1);
+  const roundTwoWinner = getRoundWinner(2);
+  const roundThreeWinner = getRoundWinner(3);
+
+  if (roundOneWinner === 'Player One') {
+    playerOneWins++;
+  } else if (roundOneWinner === 'Player Two') {
+    playerTwoWins++;
   }
 
-  let playerOneWins = 0,
-      playerTwoWins = 0,
-      ties = 0;
-
-  let winner = getRoundWinner(1)
-  if (winner === 'Player One') {
+  if (roundTwoWinner === 'Player One') {
     playerOneWins++;
-  } else if (winner === 'Player Two') {
+  } else if (roundTwoWinner === 'Player Two') {
     playerTwoWins++;
-  } else if (winner === 'Tie'){
-    ties++;
   }
 
-  winner = getRoundWinner(2);
-  if (winner === 'Player One') {
+  if (roundThreeWinner === 'Player One') {
     playerOneWins++;
-  } else if (winner === 'Player Two') {
+  } else if (roundThreeWinner === 'Player Two') {
     playerTwoWins++;
-  } else if (winner === 'Tie'){
-    ties++;
-  }
-
-  winner = getRoundWinner(3);
-  if (winner === 'Player One') {
-    playerOneWins++;
-  } else if (winner === 'Player Two') {
-    playerTwoWins++;
-  } else if (winner === 'Tie'){
-    ties++;
   }
 
 
@@ -197,7 +190,7 @@ function setComputerMoves () {
   playerTwoMoveTwoType = moveTypes[Math.floor(Math.random() * 3)];
   playerTwoMoveThreeType = moveTypes[Math.floor(Math.random() * 3)];
 
-  while (sum > 99) {
+  while (sum !== 99) {
     playerTwoMoveOneValue = Math.floor(Math.random() * 98) + 1;
     playerTwoMoveTwoValue = Math.floor(Math.random() * 98) + 1;
     playerTwoMoveThreeValue = Math.floor(Math.random() * 98) + 1;
